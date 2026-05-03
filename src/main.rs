@@ -29,8 +29,6 @@ fn main() -> opencv::Result<()> {
             InterpolationFlags::INTER_LINEAR as i32,
         )?;
 
-        highgui::imshow("frame", &resized_frame)?;
-
         print!("\x1B[H");
         print!("{}", frame_to_ascii(&resized_frame)?);
         io::stdout().flush().unwrap();
