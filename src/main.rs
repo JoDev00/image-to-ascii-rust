@@ -51,8 +51,9 @@ fn frame_to_ascii(frame: &Mat) -> opencv::Result<String> {
             let rgba = pixel.0;
             let avg = (rgba[0] as u16 + rgba[1] as u16 + rgba[2] as u16) / 3;
             let char = get_ascii_character(avg, 255);
+
             ascii.push(' ');
-            ascii.push(char);
+            ascii.push_str(&get_colored_char(char, rgba[0], rgba[1], rgba[2]));
         }
         ascii.push('\n');
     }
