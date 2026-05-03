@@ -8,6 +8,7 @@ struct Args {
     img_name: String,
     width: u32,
     height: u32,
+    color: Option<bool>,
 }
 
 const ASCII_BRIGHTNESS_VALUES: &str = "@@#S%?*+;:,";
@@ -32,7 +33,14 @@ fn main() {
         if pixel.0 % img.width() == 0 {
             println!();
         }
-        print!(" {}", get_colored_char(char, rgba[0], rgba[1], rgba[2]));
+
+        if let Some(color) = args.color
+            && color == true
+        {
+            print!(" {}", get_colored_char(char, rgba[0], rgba[1], rgba[2]));
+        } else {
+            print!(" {}", char);
+        }
     }
 }
 
