@@ -1,4 +1,4 @@
-# Image-to-Ascii
+# Image-to-Ascii Rust
 
 This is a simple Rust program that converts an image to ASCII format.
 
