@@ -1,4 +1,6 @@
 use opencv::highgui;
+use opencv::imgproc;
+use opencv::imgproc::InterpolationFlags;
 use opencv::prelude::*;
 use opencv::videoio;
 use std::io::{self, Write};
@@ -16,10 +18,21 @@ fn main() -> opencv::Result<()> {
 
     loop {
         cap.read(&mut frame)?;
-        highgui::imshow("frame", &frame)?;
+
+        let mut resized_frame = Mat::default();
+        imgproc::resize(
+            &frame,
+            &mut resized_frame,
+            opencv::core::Size::new(64, 64),
+            0.0,
+            0.0,
+            InterpolationFlags::INTER_LINEAR as i32,
+        )?;
+
+        highgui::imshow("frame", &resized_frame)?;
 
         print!("\x1B[H");
-        print!("{}", frame_to_ascii(&frame)?);
+        print!("{}", frame_to_ascii(&resized_frame)?);
         io::stdout().flush().unwrap();
 
         if highgui::wait_key(1)? == 27 {
